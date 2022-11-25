@@ -483,3 +483,5 @@
 [Wed Nov 23 12:32:57.029449 2022] [authz_core:debug] [pid 14208:tid 1932] mod_authz_core.c(815): [client 127.0.0.1:53584] AH01626: authorization result of <RequireAny>: granted
 [Thu Nov 24 10:51:15.240620 2022] [proxy:debug] [pid 38080:tid 644] proxy_util.c(2117): AH00924: worker ajp://127.0.0.1/examples shared already initialized
 [Thu Nov 24 10:51:15.241653 2022] [proxy:debug] [pid 38080:tid 644] proxy_util.c(2174): AH00926: worker ajp://127.0.0.1/examples local already initialized
+[Fri Nov 25 11:40:36.829583 2022] [proxy:debug] [pid 40292:tid 660] proxy_util.c(2117): AH00924: worker ajp://127.0.0.1/examples shared already initialized
+[Fri Nov 25 11:40:36.829583 2022] [proxy:debug] [pid 40292:tid 660] proxy_util.c(2174): AH00926: worker ajp://127.0.0.1/examples local already initialized
