@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 400px;
+            /* The height is 400 pixels */
+            width: 50%;
+            /* The width is the width of the web page */
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        /* Set the size of the div element that contains the map */
+
+
+    </style>
+</head>
+<body>
+<div id="map"></div>
+
+</body>
+<script>
+    let map;
+    let markers = [];
+    let geocoder;
+    let response;
+    let address;
+    let nextbuttondiv;
+    let newposition;
+    let polygon;
+    let secondStepDiv;
+    let thirdStepDiv;
+    let area ;
+    let polyline;
+    let polylines = [];
+    let point = [];
+
+
+
+    function initMap() {
+        let lat = 48.8566;
+        let lng = 2.3522;
+        var mapOption = {
+            zoom: 20,
+            center: {
+                lat: lat,
+                lng: lng
+            },
+            mapTypeControl: false,
+            mapTypeId: 'satellite',
+            zoomControl: false,
+            fullscreenControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            draggable: false,
+        }
+        map = new google.maps.Map(document.getElementById("map"), mapOption);
+        drawPolyLine(lat, lng);
+
+    }
+
+    function drawPolyLine(lat, lng)
+    {
+        const bounds = [
+            { lat: lat, lng: lng + 0.0001 },
+            { lat: lat, lng: lng },
+            { lat: lat - 0.0001, lng: lng },
+            { lat: lat-0.0001, lng: lng + 0.0001 },
+        ]
+
+
+
+        var coord = bounds;
+        $first = coord[0];
+        //coord.push($first);
+
+        point.push([coord[0], coord[1]]);
+        point.push([coord[1], coord[2]]);
+        point.push([coord[2], coord[3]]);
+        point.push([coord[3], coord[0]]);
+
+        for(i = 0; i < point.length; i ++)
+        {
+            var options = {
+                path: point[i],
+                geodesic: true,
+                strokeColor: "#5fd59d",
+                strokeOpacity: 1.0,
+                strokeWeight: 5,
+                clickable: true,
+                editable:false,
+            }
+            polyline = new google.maps.Polyline(options);
+            polyline.setMap(map);
+            polylines.push(polyline);
+            google.maps.event.addListener(polyline, "click", changeColor(polyline,i,polylines));
+        }
+        return polyline;
+    }
+    function changeColor(polyline, i,polylines) {
+
+        return function (event) {
+            cal(i)
+            for (let j = 0; j < polylines.length; j++) {
+                if (j == i) {
+                    options ="#ffffff"
+                    }
+
+                 else {
+                    options ="#5fd59d"
+
+                }
+                polylines[j].setOptions({ strokeColor:  options})
+
+            }
+        }
+        //calculate the orientation here
+
+    }
+
+   // initMap();
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0DOyCn7fHMdEN7HVumjmZTldMdmEfrpI&callback=initMap&v=weekly"
+        defer
+></script>
+</html>
+
